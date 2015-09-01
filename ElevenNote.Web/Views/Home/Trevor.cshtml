@@ -1,0 +1,21 @@
+﻿@{
+    var maxNumberOfDaysBeforeBirthday = 365;
+    var showThis = true;
+}
+<h1>Trevor</h1>
+Number of days before birthday:
+<select name="theOption">
+    @for (var i = 0; i <= maxNumberOfDaysBeforeBirthday; i++)
+    {
+        <option value="@i">
+            @i
+        </option>
+    }
+</select>
+
+@if (showThis == true)
+{
+    <p>This is visible</p>
+}
+
+
