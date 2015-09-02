@@ -4,28 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace ElevenNote.Web.Controllers
 {
+    [Authorize]
     public class NotesController : Controller
     {
         // GET: Notes
         public ActionResult Index()
         {
-            var notes = new List<NoteListViewModel>();
-
-            notes.Add(new NoteListViewModel()
-            {
-                Id = 0,
-                DateCreated = DateTime.UtcNow.AddMonths(-1),
-                DateModified = DateTime.UtcNow,
-                IsFavorite = true,
-                Title = "Some note title"
-
-            });
-            
-
-            
+            var noteService = new Services.NoteService();
+            var notes = noteService.GetAllForUser(Guid.Parse(User.Identity.GetUserId()));
 
             return View(notes);
         }

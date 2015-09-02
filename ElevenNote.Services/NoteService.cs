@@ -154,5 +154,9 @@ namespace ElevenNote.Services
 
         }
 
+        public object GetAllForUser()
+        {
+            throw new NotImplementedException();
+        }
     }
 } 
