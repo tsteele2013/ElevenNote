@@ -19,5 +19,28 @@ namespace ElevenNote.Web.Controllers
 
             return View(notes);
         }
+
+        [HttpGet]
+        [ActionName("Create")]
+        public ActionResult CreateGet()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("Create")]
+        public ActionResult CreatePost(NoteEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var noteService = new Services.NoteService();
+                var userId = Guid.Parse(User.Identity.GetUserId());
+                var result = noteService.Create(model, userId);
+                TempData.Add("Result", result ? "Note added." : "Note not added.");
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
     }
 }
