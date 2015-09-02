@@ -59,6 +59,11 @@
   <ItemGroup>
     <Compile Include="ElevenNoteApplicationUser.cs" />
     <Compile Include="ElevenNoteDataContext.cs" />
+    <Compile Include="Migrations\201509012325394_AddedNotesTable.cs" />
+    <Compile Include="Migrations\201509012325394_AddedNotesTable.Designer.cs">
+      <DependentUpon>201509012325394_AddedNotesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +75,11 @@
       <Project>{291271b0-8667-49a8-a557-525cd82c32db}</Project>
       <Name>ElevenNote.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201509012325394_AddedNotesTable.resx">
+      <DependentUpon>201509012325394_AddedNotesTable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
