@@ -14,9 +14,14 @@ namespace ElevenNote.Web.Controllers
         // GET: Notes
         public ActionResult Index()
         {
+            if (TempData["Result"] != null)
+            {
+                ViewBag.Success = TempData["Result"];
+                TempData.Remove("Result");
+            }
+
             var noteService = new Services.NoteService();
             var notes = noteService.GetAllForUser(Guid.Parse(User.Identity.GetUserId()));
-
             return View(notes);
         }
 
