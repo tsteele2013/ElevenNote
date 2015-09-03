@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 namespace ElevenNote.Web.Controllers
 {
     [Authorize]
+    [System.Runtime.InteropServices.Guid("F1AB4A85-17E9-4D8D-B0E4-69FF91F34CFC")]
     public class NotesController : Controller
     {
         // GET: Notes
@@ -46,6 +47,65 @@ namespace ElevenNote.Web.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        [HttpGet]
+        [ActionName("Edit")]
+        public ActionResult EditGet(int id)
+        {
+            var noteService = new Services.NoteService();
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var note = noteService.GetById(id, userId);
+            return View(note);
+        }
+
+        [HttpPost]
+        [ActionName("Edit")]
+        public ActionResult EditPost(NoteEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var noteService = new Services.NoteService();
+                var userId = Guid.Parse(User.Identity.GetUserId());
+                var result = noteService.Update(model, userId);
+                TempData.Add("Result", result ? "Note updated." : "Note not updated.");
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        [ActionName("Details")]
+        public ActionResult DetailsGet(int id)
+        {
+            var noteService = new Services.NoteService();
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var note = noteService.GetById(id, userId);
+            return View(note);
+        }
+
+        [HttpGet]
+        [ActionName("Delete")]
+        public ActionResult DeleteGet(int id)
+        {
+            var noteService = new Services.NoteService();
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var note = noteService.GetById(id, userId);
+            return View(note);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult DeletePost(int id)
+        { 
+            var noteService = new Services.NoteService();
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var result = noteService.Delete(id, userId);
+            TempData.Add("Result", result ? "Note deleted." : "Note not deleted.");
+            return RedirectToAction("Index");
+
+
         }
     }
 }
